@@ -28,15 +28,22 @@ def enemies():
 @app.route("/info/scoring")
 def scoring():
     return render_template("scoring.html")
-@app.route("/add", method='GET')
+@app.route("/add", methods=['GET'])
 def autoadd():
     with sqlite3.connect("scoreboard.db") as users:
-        cursor = users.cursor()
-        cursor.execute("INSERT OR REPLACE INTO LEADERBOARD \
-        (username,score) VALUES (?,?)",
-                       (username, score))
-        users.commit()
+        if username is None and score is None:
+            cursor = users.cursor()
+            cursor.execute("INSERT OR REPLACE INTO LEADERBOARD \
+            (username,score) VALUES (?,?)",
+                           (username, score))
+            users.commit()
+        elif username is not None and score is not None:
+            cursor=users.cursor()
+            cursor.execute("UPDATE LEADERBOARD SET username = ? WHERE score = ?",
+                            (username,score))
+            users.commit()
     return render_template("index.html")
+    
 connect = sqlite3.connect('scoreboard.db')
 connect.execute(
     'CREATE TABLE IF NOT EXISTS LEADERBOARD (username TEXT, score TEXT)'

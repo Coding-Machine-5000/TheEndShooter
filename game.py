@@ -1,7 +1,7 @@
 #import the pygame library 
 import pygame 
 import random
-import time
+import datetime
 import os
 import requests
 username=input("Enter a username to be written to the leaderboard automatically: ")
@@ -40,6 +40,9 @@ goldenbullet='bullet_golden.png'
 mine='cosmic_mine.png'
 player='player.png'
 enemy='enemy.png'
+enemyOLantern='enemy_hwn.png'
+santaenemy='enemy_xmas.png'
+enemy_img_list=[enemy, enemyOLantern, santaenemy]
 boss='boss.png'
 final_boss='final_boss.png'
 queen_boss='queen_boss.png'
@@ -82,7 +85,12 @@ enemySpawnChance=0
 my=playerbase
 score=0
 highscore=score
-bg_island_choice=bg_island_list[random.randint(0,3)]
+if datetime.date.month == 10:
+  bg_island_choice="BGHalloween.png"
+elif datetime.date.month == 12:
+  bg_island_choice="BGChristmas.png"
+else:
+  bg_island_choice=bg_island_list[random.randint(0,3)]
 bg_islands=bg_island_choice
 def draw_player(sprite, posx, posy):
   screen.blit(sprite, (posx, posy))
@@ -200,7 +208,12 @@ def update_enemy(rate):
     print("Enemy update failure! (Instance #"+str(enemy_fails)+")")
 def spawn_enemy(posx,posy,hp):
   global enemyRect
-  enemySprite=pygame.image.load(enemy)
+  if datetime.date.month == 10:
+    enemySprite=pygame.image.load(enemy_img_list[1])
+  elif datetime.date.month == 12:
+    enemySprite=pygame.image.load(enemy_img_list[2])
+  else:
+    enemySprite=pygame.image.load(enemy_img_list[0])
   enemy_list.append(enemySprite)
   enemyRect=enemySprite.get_rect()
   enemyRect.y=posy
@@ -229,7 +242,12 @@ minesounds=pygame.mixer.Channel(2)
 alarm=pygame.mixer.Sound("escape_warning.wav")
 screenSprite=pygame.image.load(screen_go)
 try:
-  background = "End.mp3"
+  if datetime.date.month == 10:
+    background = "EndHwn.mp3"
+  elif datetime.date.month == 12:
+    background = "EndXmas.mp3"
+  else:
+    background = "End.mp3"
   background_aether = aethermusic_ran[random.randint(0,2)]
   bulletenemysounds.play(begin,loops=0,maxtime=0,fade_ms=0)
   currentMusic=pygame.mixer.music.load(background)
@@ -312,7 +330,7 @@ while keep_playing==True:
       print("Cosmic Mine failure! (Instance #"+str(mine_fails)+")")
     minesounds.play(boom)
     played2=False
-    mine_cooldown=2000
+    mine_cooldown=1250
     my=playerbase
     firedMine=False
   if mine_cooldown <= 0 and state=="Loop":
@@ -423,7 +441,12 @@ while keep_playing==True:
   draw_player(playerSprite, x, playerbase)
   if scroll_y >= 1024:
     scroll_y=-1024
-    bg_island_choice=bg_island_list[random.randint(0,3)]
+    if datetime.date.month == 10:
+      bg_island_choice="BGHalloween.png"
+    elif datetime.date.month == 12:
+      bg_island_choice="BGChristmas.png"
+    else:
+      bg_island_choice=bg_island_list[random.randint(0,3)]
     bg_islands=bg_island_choice
   else:
     scroll_y+=2
@@ -439,7 +462,7 @@ while keep_playing==True:
       data = response.json()
       print("Successfully written results to leaderboard:", data["result"])
     except:
-      print("The web server is not running!")
+      print("The web server is not running! Run the server in another terminal window or use a different method of running the server!")
     if pressed[pygame.K_r]:
       state="Loop"
       enemies_escaped=0
