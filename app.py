@@ -31,17 +31,11 @@ def scoring():
 @app.route("/add", methods=['GET'])
 def autoadd():
     with sqlite3.connect("scoreboard.db") as users:
-        if username is None and score is None:
-            cursor = users.cursor()
-            cursor.execute("INSERT OR REPLACE INTO LEADERBOARD \
-            (username,score) VALUES (?,?)",
-                           (username, score))
-            users.commit()
-        elif username is not None and score is not None:
-            cursor=users.cursor()
-            cursor.execute("UPDATE LEADERBOARD SET username = ? WHERE score = ?",
-                            (username,score))
-            users.commit()
+        cursor = users.cursor()
+        cursor.execute("INSERT OR REPLACE INTO LEADERBOARD \
+        (username,score) VALUES (?,?)",
+                       (username, score))
+        users.commit()
     return render_template("index.html")
     
 connect = sqlite3.connect('scoreboard.db')
