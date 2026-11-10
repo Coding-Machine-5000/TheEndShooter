@@ -262,7 +262,7 @@ try:
     background = "EndHwn.mp3"
   elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
     background = "EndXmas.mp3"
-  elif datetime.date.month == 6 or (eternalholiday > 80 and eternalholiday <= 85):
+  elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 90):
       background = "EndMS.mp3"
   elif datetime.date.month == 9 or (eternalholiday > 75 and eternalholiday <= 80):
       background = "EndLC.mp3"
