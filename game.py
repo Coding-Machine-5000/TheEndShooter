@@ -93,7 +93,7 @@ if datetime.date.month == 10 or (eternalholiday > 95 and eternalholiday <= 100):
   bg_island_choice="BGHalloween.png"
 elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
   bg_island_choice="BGChristmas.png"
-elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 95):
+elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 90):
   bg_island_choice="BGMinesweeper.png"
 elif datetime.date.month == 7 or (eternalholiday > 80 and eternalholiday <= 85):
   bg_island_choice="BGAmericanVanilla.png"
