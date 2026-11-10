@@ -42,7 +42,10 @@ player='player.png'
 enemy='enemy.png'
 enemyOLantern='enemy_hwn.png'
 santaenemy='enemy_xmas.png'
-enemy_img_list=[enemy, enemyOLantern, santaenemy]
+dokenemy='enemy_dk.png'
+ninemy='enemy_msp.png'
+americanenemy='enemy_j4.png'
+enemy_img_list=[enemy, enemyOLantern, santaenemy, ninemy, americanenemy, dokenemy]
 boss='boss.png'
 final_boss='final_boss.png'
 queen_boss='queen_boss.png'
@@ -57,6 +60,7 @@ frame_ticks=0
 canFireMine=False
 enemy_limit=25
 mx=x
+eternalholiday=random.randint(0,100)
 bossSprite=pygame.image.load(boss)
 finalbossSprite=pygame.image.load(final_boss)
 queenbossSprite=pygame.image.load(queen_boss)
@@ -85,10 +89,16 @@ enemySpawnChance=0
 my=playerbase
 score=0
 highscore=score
-if datetime.date.month == 10:
+if datetime.date.month == 10 or (eternalholiday > 95 and eternalholiday <= 100):
   bg_island_choice="BGHalloween.png"
-elif datetime.date.month == 12:
+elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
   bg_island_choice="BGChristmas.png"
+elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 95):
+  bg_island_choice="BGMinesweeper.png"
+elif datetime.date.month == 7 or (eternalholiday > 80 and eternalholiday <= 85):
+  bg_island_choice="BGAmericanVanilla.png"
+elif datetime.date.month == 9 or (eternalholiday > 75 and eternalholiday <= 80):
+    bg_island_choice="BGDDLC.png"
 else:
   bg_island_choice=bg_island_list[random.randint(0,3)]
 bg_islands=bg_island_choice
@@ -208,10 +218,16 @@ def update_enemy(rate):
     print("Enemy update failure! (Instance #"+str(enemy_fails)+")")
 def spawn_enemy(posx,posy,hp):
   global enemyRect
-  if datetime.date.month == 10:
+  if datetime.date.month == 10 or (eternalholiday > 95 and eternalholiday <= 100):
     enemySprite=pygame.image.load(enemy_img_list[1])
-  elif datetime.date.month == 12:
+  elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
     enemySprite=pygame.image.load(enemy_img_list[2])
+  elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 90):
+    enemySprite=pygame.image.load(enemy_img_list[3])
+  elif datetime.date.month == 7 or (eternalholiday > 80 and eternalholiday <= 85):
+    enemySprite=pygame.image.load(enemy_img_list[4])
+  elif datetime.date.month == 9 or (eternalholiday > 75 and eternalholiday <= 80):
+    enemySprite=pygame.image.load(enemy_img_list[5])
   else:
     enemySprite=pygame.image.load(enemy_img_list[0])
   enemy_list.append(enemySprite)
@@ -242,10 +258,14 @@ minesounds=pygame.mixer.Channel(2)
 alarm=pygame.mixer.Sound("escape_warning.wav")
 screenSprite=pygame.image.load(screen_go)
 try:
-  if datetime.date.month == 10:
+  if datetime.date.month == 10 or (eternalholiday > 95 and eternalholiday <= 100):
     background = "EndHwn.mp3"
-  elif datetime.date.month == 12:
+  elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
     background = "EndXmas.mp3"
+  elif datetime.date.month == 6 or (eternalholiday > 80 and eternalholiday <= 85):
+      background = "EndMS.mp3"
+  elif datetime.date.month == 9 or (eternalholiday > 75 and eternalholiday <= 80):
+      background = "EndLC.mp3"
   else:
     background = "End.mp3"
   background_aether = aethermusic_ran[random.randint(0,2)]
@@ -441,10 +461,16 @@ while keep_playing==True:
   draw_player(playerSprite, x, playerbase)
   if scroll_y >= 1024:
     scroll_y=-1024
-    if datetime.date.month == 10:
+    if datetime.date.month == 10 or (eternalholiday > 95 and eternalholiday <= 100):
       bg_island_choice="BGHalloween.png"
-    elif datetime.date.month == 12:
+    elif datetime.date.month == 12 or (eternalholiday > 90 and eternalholiday <= 95):
       bg_island_choice="BGChristmas.png"
+    elif datetime.date.month == 6 or (eternalholiday > 85 and eternalholiday <= 90):
+      bg_island_choice="BGMinesweeper.png"
+    elif datetime.date.month == 7 or (eternalholiday > 80 and eternalholiday <= 85):
+      bg_island_choice="BGAmericanVanilla.png"
+    elif datetime.date.month == 9 or (eternalholiday > 75 and eternalholiday <= 80):
+      bg_island_choice="BGDDLC.png"
     else:
       bg_island_choice=bg_island_list[random.randint(0,3)]
     bg_islands=bg_island_choice
